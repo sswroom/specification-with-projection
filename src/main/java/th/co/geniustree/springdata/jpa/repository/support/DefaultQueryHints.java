@@ -25,6 +25,7 @@ import org.springframework.data.jpa.repository.support.QueryHints;
 import org.springframework.data.util.Optionals;
 import org.springframework.util.Assert;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -83,7 +84,8 @@ class DefaultQueryHints implements QueryHints {
 	 * @see org.springframework.data.jpa.repository.support.QueryHints#withFetchGraphs()
 	 */
 	@Override
-	public QueryHints withFetchGraphs(EntityManager em) {
+	@Nonnull
+	public QueryHints withFetchGraphs(@Nonnull EntityManager em) {
 		return new DefaultQueryHints(this.information, this.metadata, Optional.of(em), this.forCounts);
 	}
 
@@ -92,6 +94,7 @@ class DefaultQueryHints implements QueryHints {
 	 * @see org.springframework.data.jpa.repository.support.QueryHints#forCounts()
 	 */
 	@Override
+	@Nonnull
 	public QueryHints forCounts() {
 		return new DefaultQueryHints(this.information, this.metadata, this.entityManager, true);
 	}
@@ -101,7 +104,7 @@ class DefaultQueryHints implements QueryHints {
 	 * @see org.springframework.data.jpa.repository.support.QueryHints#forEach(java.util.function.BiConsumer)
 	 */
 	@Override
-	public void forEach(BiConsumer<String, Object> action) {
+	public void forEach(@Nonnull BiConsumer<String, Object> action) {
 		combineHints().forEach(action);
 	}
 
