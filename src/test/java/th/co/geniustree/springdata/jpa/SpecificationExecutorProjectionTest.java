@@ -4,8 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -77,7 +77,7 @@ public class SpecificationExecutorProjectionTest {
 
     @Test
     public void find_all_page() {
-        Specification<Document> where = Specification.where(null);
+        Specification<Document> where = Specification.unrestricted();
         Page<DocumentRepository.OnlyParent> all = documentRepository.findAll(where, DocumentRepository.OnlyParent.class, PageRequest.of(0, 10));
         Assertions.assertThat(all).isNotEmpty();
         Assertions.assertThat(all.getTotalElements()).isEqualTo(24);

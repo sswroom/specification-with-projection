@@ -114,7 +114,7 @@ class DefaultQueryHints implements QueryHints {
 
 	private org.springframework.data.jpa.repository.support.QueryHints getFetchGraphs() {
 		return Optionals
-				.mapIfAllPresent(entityManager, metadata.getEntityGraph(),
+				.mapIfAllPresent(entityManager, Optional.ofNullable(metadata.getEntityGraph()),
 						(em, graph) -> Jpa21Utils.getFetchGraphHint(em, getEntityGraph(graph), information.getJavaType()))
 				.orElse(new MutableQueryHints());
 	}
